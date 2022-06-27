@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter //@Setter
+@Getter @Setter
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "dtype")
 public abstract class Item {
@@ -54,6 +54,7 @@ public abstract class Item {
         if(restStock < 0){
             throw new NotEnoughStockException("재고는 0보다 작을 수 없습니다.");
         }
+        this.stockQuantity = restStock;
     }
 
 }
