@@ -10,6 +10,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 public class MemberController {
@@ -23,7 +26,7 @@ public class MemberController {
     }
 
     @PostMapping("/members/new")
-    public String create(MemberForm form, BindingResult result){
+    public String create(@Valid MemberForm form, BindingResult result){
 
         //error발생시 리턴 url매핑 -> view에서 타임리프와 연동하여 폼 에러 처리
         if(result.hasErrors()){
@@ -36,6 +39,13 @@ public class MemberController {
         member.setAddress(address);
         memberService.join(member);
         return "redirect:/";
+    }
+
+    @GetMapping("/members")
+    public String list(Model model){
+        List<Member> members = memberService.findMembers(); //실무에서는 엔티티 사용을 지양하고 form별로 따로 만들어서 사용!
+        model.addAttribute("members", members);
+        return "members/memberList";
     }
 
 }
