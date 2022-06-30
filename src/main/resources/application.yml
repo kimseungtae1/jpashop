@@ -5,6 +5,11 @@ spring:
       username: sa
       password:
       driver-class-name: org.h2.Driver
+  #mssql-datasource:
+  #  jdbc-url:
+  #  username:
+  #  password:
+  #  driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
 
   jpa:
     hibernate:
